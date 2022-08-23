@@ -1,0 +1,8 @@
+Props로 값을 주고 받는다
+    : 사용자 정의 함수에 props로 파라미터를 통해 받아 올 수 있다
+    : 이를 비구조할당 function({color, name})으로 받아 올 수도 있다
+
+Props 의 default값을 설정해 둘 수 있다
+    : Hello.defaultProps = {name: '이름없음'}
+
+children이라는 props를 통해서 사용자정의함수tag로 감싸진 것 내부의 값을 받아 올 수 있다.
