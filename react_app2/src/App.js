@@ -1,15 +1,15 @@
 import React from "react";
-import Hello from "./hello";
+//import Hello from "./hello";
 import Wrapper from "./wrapper"
+import Counter from "./Counter";
 import './App.css';
 
-function App() {
+function App(props) {
+
   return (
     <Wrapper>
     <div className="App">
-      {/* isSpecial 값에 아무것도 넣어주지 않으면 true입니당*/}
-      <Hello name='react' color='red' isSpecial={true}></Hello>
-      <Hello color='aqua'></Hello>
+      <Counter></Counter>
     </div>
     </Wrapper>
   );
