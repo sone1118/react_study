@@ -1,5 +1,6 @@
 import React, {useState, useRef} from "react";
 
+//특정 돔을 선택하고 싶을때
 //돔에 직접 접근하는 방법  = useRef사용하기
 //react자체 기능으로는 우리가 만들어논 초기화버튼을 누루고 커서를 옮길 수없다
 // = 직접 돔에 접근해야한다
