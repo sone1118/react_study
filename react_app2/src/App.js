@@ -14,14 +14,15 @@ function App(props) {
   });
   
   const { username, email } = inputs;
-  const onChange = (e) => {
+  const onChange = useCallback(e => {
     const { name, value } = e.target;
     setInputs({
       ...inputs,
       [name]: value,
     });
     console.log(name, value);
-  }
+  }, [inputs]);
+  
   const [ users, setUsers ] = useState([
     {
         id: 1,
