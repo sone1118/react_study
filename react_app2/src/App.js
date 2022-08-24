@@ -70,13 +70,13 @@ const onCreate = useCallback(() => {
   // setUsers(user);
 
   const user = {id: nextId.current, username, email};
-  setUsers(users.concat(user));
+  setUsers(users => users.concat(user));
 
   setInputs({
     username: '',
     email: '',
   });
-}, [username, email, users]);
+}, [username, email]);
 
 // const onRemove = (e) => {
 //   const id = Number(e.target.value);
@@ -85,16 +85,16 @@ const onCreate = useCallback(() => {
 // }
 
 const onRemove = useCallback( id => {
-  setUsers(users.filter(user => user.id !== id));
-}, [users]);
+  setUsers(users => users.filter(user => user.id !== id));
+}, []);
 
 const onToggle = useCallback( id => {
   //불변성을 위해서 복제후에 넣어줘야해!
-  setUsers(users.map(user => 
+  setUsers(users => users.map(user => 
     user.id === id ? 
     {...user, active: !user.active} : {...user}
   ))
-}, [users]);
+}, []);
 
 //성능 최적을 위해서 useMemo 를 사용한다
 //createUser에 onchage 이벤트를 발생시킬때마다

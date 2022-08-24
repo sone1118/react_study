@@ -39,7 +39,7 @@ useMemo와 비슷 App.js에 예제 있음
  */
 
 
-function User({user, onRemove, onToggle}) {
+const User = React.memo(function User({user, onRemove, onToggle}) {
     const { id, username, email, active} = user;
 
     /*
@@ -106,7 +106,7 @@ function User({user, onRemove, onToggle}) {
             {/*<button value={id} onClick={onRemove}>삭제</button> */}
         </div>
     );
-}
+});
 
 function UserList({ users, onRemove, onToggle }) {
     
@@ -136,5 +136,5 @@ function UserList({ users, onRemove, onToggle }) {
         </div>
     );
 }
-
-export default UserList;
+//props가 변경됬을때만 rerendering 된다.
+export default React.memo (UserList);
