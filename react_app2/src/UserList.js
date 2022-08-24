@@ -1,14 +1,21 @@
 import React from "react";
 
-function User({user}) {
+function User({user, onRemove}) {
     return(
         <div>
             <b>{user.username}</b> <span> {user.email}</span>
+            {/*
+            () => onRemove(user.id)이렇게 안하고 바로
+            onRemove(user.id)이렇게 해버리면
+            호출하는 동시에 실행 되는거라 안됨
+            */}
+            <button onClick={() => onRemove(user.id)}>삭제</button>
+            {/*<button value={user.id} onClick={onRemove}>삭제</button> */}
         </div>
     );
 }
 
-function UserList({ users }) {
+function UserList({ users, onRemove }) {
     
     return(
         <div>
@@ -25,7 +32,11 @@ function UserList({ users }) {
                 //key값이 있다면 무엇이 renderign 되어야 하는지 알 수 있기때문에 따로 배열이 밀리거나 새로 정의될 필요가 없다.
 
                 users.map(
-                    user => (<User user={user} key={user.id} />)
+                    user => (<User 
+                        user={user} 
+                        key={user.id}
+                        onRemove={onRemove} 
+                        />)
                 )
             }
         </div>
