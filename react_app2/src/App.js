@@ -26,17 +26,20 @@ function App(props) {
     {
         id: 1,
         username: 'Jenos',
-        email: 'jenos1118@naver.com'
+        email: 'jenos1118@naver.com',
+        active: true,
     },
     {
         id: 2,
         username: 'Sone',
-        email: 'sone1118@gmail.com'
+        email: 'sone1118@gmail.com',
+        active: false,
     },
     {
         id: 3,
         username: 'Hyejin',
-        email: 'hyejin1118@github'
+        email: 'hyejin1118@github',
+        active: false,
     }
 ]);
 
@@ -80,8 +83,16 @@ const onCreate = () => {
 //   console.log(users);
 // }
 
-const onRemove = (id) => {
+const onRemove = id => {
   setUsers(users.filter(user => user.id !== id));
+}
+
+const onToggle = id => {
+  //불변성을 위해서 복제후에 넣어줘야해!
+  setUsers(users.map(user => 
+    user.id === id ? 
+    {...user, active: !user.active} : {...user}
+  ))
 }
 
   return (
@@ -93,7 +104,11 @@ const onRemove = (id) => {
       onChange={onChange} 
       onCreate={onCreate}
       />
-      <UserList users={users} onRemove={onRemove}/>
+      <UserList 
+      users={users} 
+      onRemove={onRemove} 
+      onToggle={onToggle}
+      />
     </div>
     </Wrapper>
   );

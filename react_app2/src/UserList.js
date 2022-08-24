@@ -1,21 +1,30 @@
 import React from "react";
 
-function User({user, onRemove}) {
+function User({user, onRemove, onToggle}) {
+    const { id, username, email, active} = user;
     return(
         <div>
-            <b>{user.username}</b> <span> {user.email}</span>
+            <b style={{
+                color: active ? 'green' : 'black',
+                cursor: 'pointer',
+            }}
+            onClick={() => onToggle(id)}>
+                {username}
+                </b> 
+                &nbsp;
+                <span> {email}</span>
             {/*
-            () => onRemove(user.id)이렇게 안하고 바로
-            onRemove(user.id)이렇게 해버리면
+            () => onRemove(id)이렇게 안하고 바로
+            onRemove(id)이렇게 해버리면
             호출하는 동시에 실행 되는거라 안됨
             */}
-            <button onClick={() => onRemove(user.id)}>삭제</button>
-            {/*<button value={user.id} onClick={onRemove}>삭제</button> */}
+            <button onClick={() => onRemove(id)}>삭제</button>
+            {/*<button value={id} onClick={onRemove}>삭제</button> */}
         </div>
     );
 }
 
-function UserList({ users, onRemove }) {
+function UserList({ users, onRemove, onToggle }) {
     
     return(
         <div>
@@ -35,7 +44,8 @@ function UserList({ users, onRemove }) {
                     user => (<User 
                         user={user} 
                         key={user.id}
-                        onRemove={onRemove} 
+                        onRemove={onRemove}
+                        onToggle={onToggle} 
                         />)
                 )
             }
