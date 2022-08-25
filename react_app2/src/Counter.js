@@ -1,20 +1,46 @@
-import React, {useState} from "react";
+import React, { useReducer } from "react";
+
+//상태 업데이트 로직을 함수 밖으로 빼서 만들어주자
+// =useReducer 로 가능
+//recuder함수는 밖으로 빼서 만들어 줄 수 있다.
+//action에 따라 state값을 return 해 주어야 한다.
+//state 값은 객체던 배열이던 아무거나 될 수있다
+//action 은 {type: 'INCREMENT'} {type: 'DECREMENT'} 등으로 해주는데
+//이름은 직접 설정 가능하다.
+//action이 무엇이냐 에 따라서 업데이트를 해준다.
+function reducer(state, action) {
+    console.log('reducer');
+    switch (action.type) {
+        case 'INCREMENT':
+            return state + 1;
+        case 'DECREMENT':
+            return state - 1;
+        case 'DECREMENT2':
+            return state - 2;
+        default:
+            throw new Error('Unhanded action');
+            //return state;
+
+    }
+}
+
+
 
 function Counter() {
-    //useState는 값이 바뀔때마다 component가 rerendering된다.
-    // useState(0)는 배열을 리턴하는데 초기값이 0인것
-    // useState(0)의[0]이 number
-    // useState(0)의 [1]이 setNumber이다
-    // 이거를 비구조 할당으로 바로 넣어서 사용한것
-    const [number, setNumber] = useState(4);
+    console.log('counter');
+    //현재의 상태 number, 보내다: 액션을 발생시킨다 dispatch
+    //useReducer(reducer함수, 초기값);
+    const [number, dispatch] = useReducer(reducer, 0);
+
     const onIncrease = () => {
-        //setNumber를 통해 number값을 수정하는 함수
-        //안에 어떻게 업데이트를 할것이다 라는 함수를 넣어 줄 수도 있다.
-        //=함수형 업데이트
-        setNumber(number + 1);
+        dispatch({
+            type: 'INCREMENT'
+        });
     }
     const onDecrease = () => {
-        setNumber(number => number - 2);
+        dispatch({
+            type: 'DECREMENT2'
+        });
     }
     return(
         <div>
