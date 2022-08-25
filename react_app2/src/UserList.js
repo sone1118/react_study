@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import { UserDispatch } from "./App";
 //Hook 함수 (useEffect, useMemo, useCallback)
 
 /*
@@ -39,8 +40,9 @@ useMemo와 비슷 App.js에 예제 있음
  */
 
 
-const User = React.memo(function User({user, onRemove, onToggle}) {
+const User = React.memo(function User({ user }) {
     const { id, username, email, active} = user;
+    const dispatch = useContext(UserDispatch);
 
     /*
     //useEffect(()=>{},[]) []은 depencylist인데
@@ -92,7 +94,10 @@ const User = React.memo(function User({user, onRemove, onToggle}) {
                 color: active ? 'green' : 'black',
                 cursor: 'pointer',
             }}
-            onClick={() => onToggle(id)}>
+            onClick={() => dispatch({
+                type: "TOGGLE",
+                id
+            })}>
                 {username}
                 </b> 
                 &nbsp;
@@ -102,13 +107,16 @@ const User = React.memo(function User({user, onRemove, onToggle}) {
             onRemove(id)이렇게 해버리면
             호출하는 동시에 실행 되는거라 안됨
             */}
-            <button onClick={() => onRemove(id)}>삭제</button>
+            <button onClick={() => dispatch({
+                type:'REMOVE_USER',
+                id
+            })}>삭제</button>
             {/*<button value={id} onClick={onRemove}>삭제</button> */}
         </div>
     );
 });
 
-function UserList({ users, onRemove, onToggle }) {
+function UserList({ users }) {
     
     return(
         <div>
@@ -128,8 +136,6 @@ function UserList({ users, onRemove, onToggle }) {
                     user => (<User 
                         user={user} 
                         key={user.id}
-                        onRemove={onRemove}
-                        onToggle={onToggle} 
                         />)
                 )
             }
