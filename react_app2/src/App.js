@@ -3,6 +3,8 @@ import React, { useRef, useReducer, useMemo, useCallback, createContext } from "
 import Wrapper from "./wrapper"
 import Counter from "./Counter";
 //import InputSample from "./InputSample";
+import User2 from "./User2";
+import ErrorBoundary from "./ErrorBoundary";
 import CreateUser from "./CreateUser";
 import UserList from "./UserList";
 import useInputs from "./useInputs";
@@ -114,6 +116,13 @@ function App(props) {
         />
         <div>활성 사용자 수: {count}</div>
       </UserDispatch.Provider>
+
+      {/*만약에 props를 전달해야하는데 우리의 실수로 전달하지 못했다면? 사용자는 하얀색의 빈 화면만 보게 될것
+      이럴때 어떻게 해야하는가? */}
+      <ErrorBoundary>
+      <User2 />
+      <b>User2의 에러 처리</b>
+      </ErrorBoundary>
     </>
   );
 }
