@@ -1,31 +1,26 @@
-import { Component } from "react";
+import { Component } from 'react';
 import React from 'react';
 
 //비구조 할당 가능
 //객체를 객체내부 이름이랑 똑같은 거로 가져오니까
 //function Hello(props) 말고
 
-
 //class형으로 component 만들기
-class Hello extends Component{
-    static defaultProps = {
-        name: '이름없음'
-    };
+class Hello extends Component {
+  static defaultProps = {
+    name: '이름없음',
+  };
 
-    render() {
-        const { color, isSpecial, name } = this.props;
-        return (
-            <div style={{color}}>
-                {isSpecial && <b>*</b>}
-                안녕하세요 {name}
-            </div>
-        );
-    }
+  render() {
+    const { color, isSpecial, name } = this.props;
+    return (
+      <div style={{ color }}>
+        {isSpecial && <b>*</b>}
+        안녕하세요 {name}
+      </div>
+    );
+  }
 }
-
-
-
-
 
 //조건부 렌더링 isSpecial
 //내용이 달라져야 할때 많이 사용한다.
