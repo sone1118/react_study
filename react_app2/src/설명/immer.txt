@@ -1,0 +1,41 @@
+immer 사용 예제
+imemr 이름을 producer라고 선언해주었음
+
+//객체
+const state = {
+    number: 1,
+    dontChangeMe: 2
+};
+
+const nextState = produce(state, draft => {
+    draft.number += 1;
+})
+
+nextState
+{number: 2, dontChangeMe: 2}
+
+=> 기존의 객체는 바뀌지 않는다.
+
+
+//배열
+const array = [
+    { id: 1, text: 'hello'},
+    { id: 2, text: 'bye'},
+    { id: 3, text: 'good'}
+];
+
+const nextArray = produce(array, draft => {
+    draft.push({id: 4, text: 'byebye'});
+    draft[0].text += ' world';
+});
+
+nextArray
+(4) [{…}, {…}, {…}, {…}]
+0: {id: 1, text: 'hello world'}
+1: {id: 2, text: 'bye'}
+2: {id: 3, text: 'good'}
+3: {id: 4, text: 'byebye'}
+length: 4
+[[Prototype]]: Array(0)
+
+=> 기존의 배열은 바뀌지 않는다.

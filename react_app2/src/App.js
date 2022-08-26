@@ -7,7 +7,13 @@ import CreateUser from "./CreateUser";
 import UserList from "./UserList";
 import useInputs from "./useInputs";
 import './App.css';
+import produce from "immer";
+//immer라고 불러와도 되지만 보통 produce 라고 불러온다고 한다.
+//immer을 사용하면 불변성을 해치는 코드를 작성해도
+//대신 불변성을 유지해준다.
 
+//크롬개발자 도구에서 immer을 사용할 수 있게 해줌
+//window.produce = produce;
 
 
 //언제 useState? 언제 useReducer?
@@ -47,25 +53,20 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
       case 'CREATE_USER':
-        return{
-          inputs: initialState.inputs,
-          users: state.users.concat(action.user)
-        }
+        return produce(state, draft => {
+          draft.users.push(action.user);
+        })
       case 'TOGGLE':
-        return{
-          ...state,
-          users: state.users.map(cur => 
-            cur.id === action.id 
-            ? {...cur, active: !cur.active} 
-            : cur
-            )     
-        }
+        return produce(state, draft => {
+          const user = draft.users.find(user => user.id === action.id);
+          user.active = !user.active;
+        })
         case 'REMOVE_USER':
-          return {
-            ...state,
-            users: state.users.filter(user => user.id !== action.id
-            )
-          }
+          return produce(state, draft => {
+            const index = draft.users.findIndex(user => user.id === action.id);
+            //index부터 1개를 없애겠다.
+            draft.users.splice(index, 1);
+          })
       default:
         throw new Error('Unhanded action');
   }
