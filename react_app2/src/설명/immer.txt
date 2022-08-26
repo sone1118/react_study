@@ -39,3 +39,42 @@ length: 4
 [[Prototype]]: Array(0)
 
 => 기존의 배열은 바뀌지 않는다.
+
+
+
+useState와 immer의 추가 설명
+
+const [todo, setTodo] = useState({
+    text: 'hello',
+    done: false
+});
+
+//setTodo setState는 인자를 함수로 받을 수 있다. (어떻게 업데이트를 할 것인가에 대한)
+const onClick = useCallback(() => {
+    setState(todo => ({
+        ...todo,
+        done: !todo.done
+    }));
+}, [todo]); //todo를 넣어줘야함
+
+immer 은 첫번째 인자 state 값을 빼면 업데이트 함수를 반환.
+const updater = produce(draft => {
+    draft.done = !draft.done;
+})
+ const nextTodo = updater(todo);
+ // {text: 'hello', done: true}
+
+ 이를 이용해서 onClick 수정
+ const onClick = useCallback(() => {
+    setState(
+        produce(draft => {
+            draft.done = !draft.done;
+        })
+    );
+}, []); //todo를 사용하지 않았기 때문에 안 넣어줘도 됨.
+
+
+데이터가 엄청많을 경우에는  속도가 느려질수 있지만
+그렇게 많지 않을 경우에는 큰 체감은 없다.
+하지만 데이터의 구조가 복잡해 지거나 할때는 사용하는 것도 방법
+필요한데만 쓰면 됨.
