@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Hello from './hello'
 import reportWebVitals from './reportWebVitals';
 //import ContextSample from './ContextSample';
 
@@ -9,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   //<React.StrictMode>
   <div>
-    <App />
+    <Hello />
   </div>
   //</React.StrictMode>
 );
