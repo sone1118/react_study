@@ -1,30 +1,48 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import Button2 from './components/Button2';
+//ThemeProvider을 통해서 App.js에서 색을 선언해두고
+//이를 Button2.js에서 받아서 사용해보자
 
-//div tag에다 특정 스타일을 적용한다
-//템플리터럴은 안에 ${} 쓸수가 없어 그냥 템플리터럴이지
-//태그 템프리터럴이 아니기 때문 => css를 추가해줘야한다.
-//=css`블라블라`
-//import styled, { css } from 'styled-components';
-const Circle = styled.div`
-  width: 5rem;
-  height: 5rem;
-  background: ${(props) => props.color};
-  border-radius: 50%;
-  ${(props) =>
-    props.huge &&
-    css`
-      width: ${props.size};
-      height: ${props.size};
-    `}
+const AppBlock = styled.div`
+  width: 512px;
+  /* 가운데 정렬 */
+  margin: 0 auto;
+  margin-top: 4rem;
+  border: 1px solid black;
+  padding: 1rem;
 `;
+
+const ButtonGroup = styled.div`
+  & + & {
+    margin-top: 1rem;
+  }
+`;
+
+const palette = {
+  blue: '#228be6',
+  gray: '#ced4da',
+  pink: '#faa2c1',
+};
 
 function App() {
   return (
-    <div>
-      <Circle color="pink" huge size="20rem" />
-      <Circle color="green" />
-    </div>
+    <ThemeProvider theme={{ palette }}>
+      <AppBlock>
+        <ButtonGroup>
+          <Button2>Button</Button2>
+          <Button2 color="pink">Button</Button2>
+          <Button2 color="gray">Button</Button2>
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button2 size="large">Button</Button2>
+          <Button2 color="pink">Button</Button2>
+          <Button2 size="small" color="gray">
+            Button
+          </Button2>
+        </ButtonGroup>
+      </AppBlock>
+    </ThemeProvider>
   );
 }
 
