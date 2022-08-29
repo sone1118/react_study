@@ -1,0 +1,36 @@
+/*이름중복걱정을 안해도됨*/
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+
+/*classname 이 checkbox인 곳 내부의 label*/
+.checkbox label {
+  cursor: pointer;
+}
+
+/*checkbox라는 class안에 들어있는 input을 안보이게 설정*/
+.checkbox input {
+  width: 0;
+  height: 0;
+  position: absolute;
+  opacity: 0;
+}
+
+.checkbox span {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  /*icon의 크기는 font-size로 설정할 수 있다*/
+  font-size: 2rem;
+  margin-right: 0.25rem;
+  color: #f783ac;
+}
+
+.checked {
+  color: #f783ac;
+}
