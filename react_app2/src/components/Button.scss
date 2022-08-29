@@ -1,0 +1,102 @@
+$blue: #228be6; //주석
+$gray: #ced4da;
+$pink: #faa2c1;
+
+//비슷한 코드가 반복된다-> sass의 mixin을 사용
+
+@mixin button-color($color) {
+  background: $color;
+  &:hover {
+    background: lighten($color, 10%); //10%더 밝게 해줌
+  }
+
+  &:active {
+    background: darken($color, 10%);
+  }
+
+  &.outline {
+    color: $color;
+    background: none;
+    border: 1px solid $color;
+
+    &:hover {
+      background: $color;
+      color: white;
+    }
+  }
+}
+
+.Button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-weight: bold;
+
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  &.large {
+    height: 3rem;
+    font-size: 1.25rem;
+  }
+
+  &.medium {
+    height: 2.25rem; //rem 이란 브라우저의 기본폰트에 기반단위
+    font-size: 1rem;
+  }
+
+  &.small {
+    height: 1.75rem;
+    font-size: 0.875rem;
+  }
+
+  &.pink {
+    @include button-color($pink);
+  }
+  &.gray {
+    @include button-color($gray);
+  }
+  &.blue {
+    @include button-color($blue);
+  }
+  //background: $blue;
+  //위에 가져다 댔을때
+  //&: 자기자신
+  //&:hover =은 즉 .Button { &:hover} 이니까 .Button:hover
+  // &:hover {
+  //   background: lighten($blue, 10%); //10%더 밝게 해줌
+  // }
+
+  // //click했을때
+  // &:active {
+  //   background: darken($blue, 10%);
+  // }
+
+  //.Button + .Button 과 동일
+  & + & {
+    margin-left: 1rem;
+  }
+
+  &.fullWidth {
+    width: 100%;
+    //display: inline-flex; 를 해야 사용할 수 있음
+    justify-content: center;
+
+    & + & {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+  }
+}
+
+//Button과 Button이 같이 있으면 오른쪽있는 애한테 style을 적용하겠다
+// .Button + .Button {
+//   margin-left: 1rem;
+// }
