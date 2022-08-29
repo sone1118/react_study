@@ -34,10 +34,33 @@ function App() {
           <Button2 color="pink">Button</Button2>
           <Button2 color="gray">Button</Button2>
         </ButtonGroup>
+
         <ButtonGroup>
           <Button2 size="large">Button</Button2>
           <Button2 color="pink">Button</Button2>
           <Button2 size="small" color="gray">
+            Button
+          </Button2>
+        </ButtonGroup>
+
+        <ButtonGroup>
+          <Button2 size="large" outline>
+            Button
+          </Button2>
+          <Button2 outline color="pink">
+            Button
+          </Button2>
+          <Button2 size="small" outline color="gray">
+            Button
+          </Button2>
+        </ButtonGroup>
+
+        <ButtonGroup>
+          <Button2 fullWidth>Button</Button2>
+          <Button2 fullWidth color="pink">
+            Button
+          </Button2>
+          <Button2 fullWidth color="gray">
             Button
           </Button2>
         </ButtonGroup>
