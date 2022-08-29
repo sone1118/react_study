@@ -1,6 +1,43 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import Button2 from './Button2';
+//keyframes를 사용해서 애니메이션 효과를 주자
+
+const fadeIn = keyframes`
+from {
+    opacity: 0;
+}
+to {
+    opacity: 1;
+}
+`;
+
+const fadeOut = keyframes`
+from {
+    opacity: 1;
+}
+to {
+    opacity: 0;
+}
+`;
+
+const slidUp = keyframes`
+from {
+    transform: translateY(200px);
+}
+to {
+    transform: translateY(0px);
+}
+`;
+
+const slidDown = keyframes`
+from {
+    transform: translateY(0px);
+}
+to {
+    transform: translateY(200px);
+}
+`;
 
 const DarkBackground = styled.div`
   position: fixed;
@@ -12,6 +49,19 @@ const DarkBackground = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.8);
+
+  animation-duration: 0.15s;
+  //처음에 빨라졌다가 느려짐
+  animation-timing-function: ease-out;
+  animation-name: ${fadeIn};
+  //마지막을 유지한다
+  animation-fill-mode: forwards;
+
+  ${(props) =>
+    props.disappear &&
+    css`
+      animation-name: ${fadeOut};
+    `}
 `;
 
 const DialogBlock = styled.div`
@@ -28,6 +78,19 @@ const DialogBlock = styled.div`
   p {
     font-size: 1.125rem;
   }
+
+  animation-duration: 0.15s;
+  //처음에 빨라졌다가 느려짐
+  animation-timing-function: ease-out;
+  animation-name: ${slidUp};
+  //마지막을 유지한다
+  animation-fill-mode: forwards;
+
+  ${(props) =>
+    props.disappear &&
+    css`
+      animation-name: ${slidDown};
+    `}
 `;
 
 const ButtonGroup = styled.div`
@@ -56,11 +119,29 @@ function Dialog({
   onConfirm,
   onCancel,
 }) {
-  if (!visible) return null;
+  //지금애니매이션을 보여주고 있다.
+  const [animate, setAnimate] = useState(false);
+
+  //현재 상태가 true에서 false로 전환되고 있다
+  const [localVisible, setLocalVisible] = useState(visible);
+
+  useEffect(() => {
+    //그냥 visible값만 사용하게된다면 useEffect특성상
+    //맨처음 visible값이 false일때도 실행 되버림 그럼 안됨.
+
+    //visible true => false
+    if (localVisible && !visible) {
+      setAnimate(true);
+      setTimeout(() => setAnimate(false), 150);
+    }
+    setLocalVisible(visible);
+  }, [localVisible, visible]);
+
+  if (!localVisible && !animate) return null;
 
   return (
-    <DarkBackground>
-      <DialogBlock>
+    <DarkBackground disappear={!visible}>
+      <DialogBlock disappear={!visible}>
         <h3>{title}</h3>
         <p>{children}</p>
         <ButtonGroup>
