@@ -42,7 +42,18 @@ function App(props) {
       </div>
       <div className="buttons">
         {/*props 이름만 넣으면 true로 인식*/}
-        <Button color="blue" size="large" fullWidth>
+        <Button
+          color="blue"
+          size="large"
+          fullWidth
+          className="customized_button"
+          onClick={() => {
+            console.log('Click');
+          }}
+          onMouseMove={() => {
+            console.log('MouseMove');
+          }}
+        >
           BUTTON
         </Button>
         <Button color="gray" fullWidth>

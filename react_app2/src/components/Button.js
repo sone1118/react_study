@@ -8,15 +8,22 @@ import classNames from 'classnames';
 //fullWidth: true, false
 //classNames 라이브러리를 써줬기 때문에 || 연산 필요없이
 //false라면 값이 들어가지 않아
-function Button({ children, size, color, outline, fullWidth }) {
+function Button({ children, size, color, outline, fullWidth, className, ...rest }) {
   //className={`Button ${size}`}
   //className={['Button', size].join(' ')}
   return (
     <button
-      className={classNames('Button', size, color, {
-        outline,
-        fullWidth,
-      })}
+      className={classNames(
+        'Button',
+        size,
+        color,
+        {
+          outline,
+          fullWidth,
+        },
+        className,
+      )}
+      {...rest}
     >
       {children}
     </button>
