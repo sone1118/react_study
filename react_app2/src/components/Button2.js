@@ -105,6 +105,11 @@ const StyledButton = styled.button`
   padding-left: 1rem;
   padding-right: 1rem;
 
+  /* 기타 */
+  & + & {
+    margin-left: 1rem;
+  }
+
   /* 크기 */
   ${sizeStyles}
   /* 생상 */
@@ -113,9 +118,7 @@ const StyledButton = styled.button`
 
   //하나로 묶어서 작성하는 방법
   //함수를 밖으로 빼서 정의할 수도 있음
-  ${colorStyles}
-
-  //다 따로따로 작성
+  ${colorStyles} //다 따로따로 작성
   /* background: ${(props) => props.theme.palette.blue};
 
   &:hover {
@@ -124,19 +127,19 @@ const StyledButton = styled.button`
   &:active {
     background: ${(props) => darken(0.1, props.theme.palette.blue)};
   } */
-
-  /* 기타 */
-  & + & {
-    margin-left: 1rem;
-  }
-
-  //스타일을 덮어 써야하기 때문에 맨 아래 적어줌
-  ${fullWidthStyle}
+    //스타일을 덮어 써야하기 때문에 맨 아래 적어줌
+    ${fullWidthStyle}
 `;
 
 function Button2({ children, color, size, fullWidth, outline, ...rest }) {
   return (
-    <StyledButton color={color} size={size} outline={outline} fullWidth={fullWidth} {...rest}>
+    <StyledButton
+      color={color}
+      size={size}
+      outline={outline}
+      fullWidth={fullWidth}
+      {...rest}
+    >
       {children}
     </StyledButton>
   );
