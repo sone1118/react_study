@@ -20,10 +20,14 @@ function TodoList() {
   console.log(todos);
   return (
     <TodoListBlock>
-      <TodoItem text="프로젝트 생성" done={true}></TodoItem>
-      <TodoItem text="컴포넌트 스타일링" done={true}></TodoItem>
-      <TodoItem text="context 만들기" done={false}></TodoItem>
-      <TodoItem text="기능 구현하기" done={true}></TodoItem>
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          id={todo.id}
+          done={todo.done}
+          text={todo.text}
+        ></TodoItem>
+      ))}
     </TodoListBlock>
   );
 }

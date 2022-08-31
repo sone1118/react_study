@@ -1,6 +1,7 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import { MdDone, MdDelete } from "react-icons/md";
+import React from 'react';
+import styled, { css } from 'styled-components';
+import { MdDone, MdDelete } from 'react-icons/md';
+import { useTodoDispatch } from './TodoContext';
 
 const CheckCircle = styled.div`
   width: 32px;
@@ -64,15 +65,34 @@ const TodoItemBlock = styled.div`
 `;
 
 function TodoItem({ id, done, text }) {
+  const dispatch = useTodoDispatch();
+
+  const onToggle = () => {
+    dispatch({
+      type: 'TOGGLE',
+      id,
+    });
+  };
+
+  const onRemove = () => {
+    dispatch({
+      type: 'REMOVE',
+      id,
+    });
+  };
   return (
     <TodoItemBlock>
-      <CheckCircle done={done}>{done && <MdDone />}</CheckCircle>
+      <CheckCircle done={done} onClick={onToggle}>
+        {done && <MdDone />}
+      </CheckCircle>
       <Text done={done}>{text}</Text>
-      <Remove>
+      <Remove onClick={onRemove}>
         <MdDelete></MdDelete>
       </Remove>
     </TodoItemBlock>
   );
 }
 
-export default TodoItem;
+//이렇게 함으로써props를 변경하지 않으면 rerenderng 되지 않아
+//dispatch만 가져와서 사용함으로써 가능하게 됨
+export default React.memo(TodoItem);
