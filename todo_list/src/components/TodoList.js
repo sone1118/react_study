@@ -1,6 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import TodoItem from "./TodoItem";
+import React from 'react';
+import styled from 'styled-components';
+import { useTodoState } from './TodoContext';
+import TodoItem from './TodoItem';
 
 const TodoListBlock = styled.div`
   //TodoTemplate에서 display: flex; 해놨기 때문에 1이면
@@ -15,11 +16,13 @@ const TodoListBlock = styled.div`
 `;
 
 function TodoList() {
+  const todos = useTodoState();
+  console.log(todos);
   return (
     <TodoListBlock>
       <TodoItem text="프로젝트 생성" done={true}></TodoItem>
       <TodoItem text="컴포넌트 스타일링" done={true}></TodoItem>
-      <TodoItem text="context 만들기" done={true}></TodoItem>
+      <TodoItem text="context 만들기" done={false}></TodoItem>
       <TodoItem text="기능 구현하기" done={true}></TodoItem>
     </TodoListBlock>
   );
