@@ -1,0 +1,2 @@
+<h2>JavaScript란</h2>
+Js공부하기 싫어요

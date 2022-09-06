@@ -1,0 +1,32 @@
+header {
+  border-bottom: 1px solid black;
+  font-size: 2rem;
+}
+
+nav {
+  float: left;
+
+  width: 200px;
+  height: 500px;
+
+  border-right: 1px solid black;
+  padding-left: 10px;
+
+  font-size: 1.25rem;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+article {
+  float: left;
+  width: 500px;
+  padding-left: 20px;
+}
+
+#button {
+  float: right;
+  font-size: 2rem;
+}
