@@ -1,5 +1,5 @@
 <?php
-    require("conn.db.php");
+    require("conn_db.php");
     require("config.php");
     $conn = db_init($config["host"], $config["duser"], $config["dpw"], $config["dname"]);
     $sql = "INSERT INTO `location` (name, distance) VALUES ('".$_POST['name']."', ".$_POST['distance'].");"; 

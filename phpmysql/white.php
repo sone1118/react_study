@@ -1,3 +1,4 @@
+
 <?php 
     require("conn_db.php");
     require("config.php");
@@ -6,14 +7,6 @@
     $conn = mysqli_connect('localhost', 'root', 111800);
     mysqli_select_db($conn, 'class');
     $result = mysqli_query($conn, 'SELECT * FROM `location`');
-    
-    //mysqli_fetch_assoc($result);
-    //첫번째 행의 데이터를 담아서 돌려주는데
-    //associate연관 배열의 형식이다.
-    //연관 배열 $a = array('name' => 'Jenos', 'age' => 12);
-    // echo $a["name"]; -> Jenos
-    // 더이상 가져올 데이터가 없을때 row에는 NULL이 들어간다
-    //var_dump($row); 정확한 타입을 알 수 있다.
 
     while($row = mysqli_fetch_assoc($result)) {
         echo $row["name"];
@@ -26,39 +19,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PHP practice</title>
-    <link rel="stylesheet" href="http://localhost/php/index.css">
+    <link href="http://localhost/bootstrap-3.3.7-dist\bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="http://localhost/php/index.css"> -->
 </head>
-<body>
+<body class="container">
     <header>
+    <div class="jumbotron text-center">
         <h1><a href="http://localhost/php/index.php">PHP Pratice</a></h1>
+    </div>       
     </header>
-    <nav>
-    <ul>
-        <?php
-             $conn = db_init($config["host"], $config["duser"], $config["dpw"], $config["dname"]);
-            $result = mysqli_query($conn, 'SELECT * FROM `location`');
-            
-            while($row = mysqli_fetch_assoc($result)) {
-                echo '<li><a href="http://localhost/php/index.php?id='.$row['id'].'">'.$row['name'].'</a></li>';
-                        
-            }
-        ?>
-    </ul>
-    </nav>
-    <div id="button">
-        <input type="button" value="white"></input>
-        <input type="button" value="black"></input>
-        <a href="http://localhost/php/white.php">쓰기</a>
-    </div>
-    <article>
-        <form action="http://localhost/php/process.php" method="post">
-            <p>지명: <input type="text" name="name"/></p>
-            <p>거리: <input type="text" name="distance"/></p>
-            <p><input type="submit" name="submit"/></p>
-        </form>  
-    </article>
+    <div class="row">
+        <nav class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <?php
+                    $conn = db_init($config["host"], $config["duser"], $config["dpw"], $config["dname"]);
+                    $result = mysqli_query($conn, 'SELECT * FROM `location`');
+                    
+                    while($row = mysqli_fetch_assoc($result)) {
+                        echo '<li role="presentation"><a href="http://localhost/php/index.php?id='.$row['id'].'">'.htmlspecialchars($row['name']).'</a></li>';
+                                
+                    }
+                ?>
+            </ul>
+        </nav>
+        <div class="col-md-9">
+            <article>         
+                <form action="http://localhost/php/process.php" method="post">
+                    <div class="form-group">
+                        <label for="form-name">지명</label>
+                        <input type="text" name="name" class="form-control" id="form-name" placeholder="지명을 적어주세요"/>
 
-    
+                        <label for="form-distance">Password</label>
+                        <input type="text" name="distance" class="form-control" id="form-distance" placeholder="거리를 적어주세요">
+                    </div>                  
+                    <input type="submit" name="submit" class="btn btn-default"/>
+                </form>
+            </article>
+            <hr>
+            <div id="button">
+                <input type="button" value="white" class="btn btn-default" ></input>
+                <input type="button" value="black" class="btn btn-default"></input>
+                <a class="btn btn-default btn-success" href="http://localhost/php/white.php" role="button">쓰기</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://localhost/bootstrap-3.3.7-dist\bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>  
 </body>
 </html>
