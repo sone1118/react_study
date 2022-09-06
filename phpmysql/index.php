@@ -1,3 +1,7 @@
+<?php 
+require('conn_db.php');
+require("config.php");
+?>
 <!-- <?php 
     $conn = mysqli_connect('localhost', 'root', 111800);
     mysqli_select_db($conn, 'class');
@@ -32,8 +36,7 @@
     <nav>
     <ul>
         <?php
-            $conn = mysqli_connect('localhost', 'root', '111800');
-            mysqli_select_db($conn, 'class');
+            $conn = db_init($config["host"], $config["duser"], $config["dpw"], $config["dname"]);
             $result = mysqli_query($conn, 'SELECT * FROM `location`');
             
             while($row = mysqli_fetch_assoc($result)) {
