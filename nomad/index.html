@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    function App() {
+        const numbers = [1, 2, 3, 4, 5, 6, 7, 8];
+        const [data, setData] = React.useState(numbers.slice(0, 4));
+
+        const onClick = (e) => {
+            const number = e.target.value;
+            const page = (number - 1) * 4;
+            const newData = numbers.slice(page, page + 4);
+            setData(newData);
+        };
+
+        return (
+            <div>
+                <h3>연습해봅시다</h3>
+                <button onClick={onClick} value={1}>1</button>
+                <button onClick={onClick} value={2}>2</button>
+                <div>
+                    <ul>
+                        <li>{data[0]}</li>
+                        <li>{data[1]}</li>
+                        <li>{data[2]}</li>
+                        <li>{data[3]}</li>    
+                    </ul>
+                </div>
+            </div>
+        );
+    }
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App/>);
+</script>
+</html>
