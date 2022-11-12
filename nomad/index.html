@@ -28,7 +28,7 @@
                     id="minutes" 
                     placeholder="Minute" 
                     type="number" 
-                    value={!flip ? amount * 60 : amount} 
+                    value={flip ? amount : amount * 60} 
                     onChange={onChange} 
                     disabled={!flip}
                     />
