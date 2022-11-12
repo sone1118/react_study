@@ -6,126 +6,40 @@
 <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.0/prop-types.js"></script>
 <script type="text/babel">
-    function MinutesToHours() {
-        const [amount, setHour] = React.useState("");
-        const [flip, setFlip] = React.useState(false);
-        const onChange = (e) => {
-            setHour(e.target.value);
-        };
-        const resetValue = () => {
-            setHour("");
-        }
-        const onFlip = () => {
-            resetValue();
-            setFlip((cur) => !cur);
-        };
-        return (
-            <div>
-                <div>
-                    <label htmlFor="minutes">Minutes </label>
-                    <input 
-                    id="minutes" 
-                    placeholder="Minute" 
-                    type="number" 
-                    value={flip ? amount : amount * 60} 
-                    onChange={onChange} 
-                    disabled={!flip}
-                    />
-                </div>
-                <div>    
-                    <label htmlFor="hours">Hours </label>
-                    <input 
-                    id="hours" 
-                    placeholder="Hour" 
-                    type="number" 
-                    value={!flip ? amount : amount / 60} 
-                    onChange={onChange} 
-                    disabled={flip}
-                    />
-                </div>
-                <br/>
-                    <button 
-                    onClick={resetValue}>
-                    reset
-                    </button>  
-                    <button 
-                    onClick={onFlip}>
-                    {flip ? "hour" : "minute"} 
-                    </button>
-            </div>
-        );
-    }
-    function KmToMiles() {
-        const [amount, setAmount] = React.useState("");
-        const [flip, setFlip] = React.useState(false);
-        const onChange = (e) => {
-            setAmount(e.target.value);
-        };
-        const onFlip = () => {
-            resetValue();
-            setFlip((cur) => !cur);
-        };
-        const resetValue = () => {
-            setAmount("");
-        };
+    function Btn({ text, onClick, font = 11 }) {
+        console.log("render Button");
         return(
             <div>
-                <div>
-                    <label htmlFor="km">Km </label>
-                    <input 
-                    id="km"
-                    placeholder="Km"
-                    value={flip ? amount: amount * 1.609344} 
-                    type="number"
-                    onChange={onChange}
-                    disabled={!flip}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="mile">Mile </label>    
-                    <input 
-                    id="mile" 
-                    placeholder="Mile"
-                    value={!flip ? amount : amount * 0.62137}
-                    type="number"
-                    onChange={onChange}
-                    disabled={flip}
-                    />
-                </div>
-                <br/>
-                <div>
-                    <button 
-                    onClick={resetValue}>
-                    reset
-                    </button>
-                    <button 
-                    onClick={onFlip}>
-                    {flip ? "Mile" : "Km"}
-                    </button>
-                </div>
+                <button
+                onClick={onClick} 
+                style={{
+                    backgroundColor: "tomato",
+                    color: "white",
+                    padding: "10px 20px",
+                    border: 0,
+                    borderRadius: 10,
+                    fontSize: font,
+                }}>{text === "" ? "not Changed" : text}</button>    
             </div>
-
         );
-    }
+    };
+    Btn.propTypes = {
+        text: PropTypes.string.isRequired,
+        font: PropTypes.number,
+    };
+    const MemoBtn = React.memo(Btn);
     function App() {
-        const [index, setIndex] = React.useState("-1");
-        const onChange = (e) => {
-            setIndex(e.target.value);
+        console.log("render App");
+        const [text, setText] = React.useState("");
+        const onClick = () => {
+            setText("Changed!!");
         };
         return (
             <div>
-                <h3 className="h3">Super Converter</h3>
-                <select onChange={onChange}>
-                    <option value="-1">Select</option>
-                    <option value="0">Minutes & Hours</option>
-                    <option value="1">Km & Miles</option>    
-                </select>
-                <br/>
-                <br/>
-                {index === "-1" ? "Select Converter" : null}
-                {index === "0" ? <MinutesToHours/> : null}
-                {index === "1" ? <KmToMiles/> : null}
+                <MemoBtn text={text} onClick={onClick} font={12}/>
+                <MemoBtn text={"Continue"}/>
             </div>
         );
     }
